@@ -14,19 +14,27 @@ evaluation and error analysis.
 * Text preprocessing: lowercasing, non-ASCII removal, URL removal, lemmatization
 * TF-IDF vectorization with hyperparameter tuning (ngram range, max features)
 * Logistic Regression classifier with regularization tuning
-* 10-fold cross-validation using weighted F1 as evaluation metric
+* Three-way train/validation/test split for unbiased final evaluation
+* Hyperparameter tuning optimized for recall on the disaster class via 10-fold cross-validation
 * Classification threshold optimization for high disaster recall
-* Feature importance analysis and systematic error analysis
+* Feature importance analysis (coefficients and odds ratios) and systematic error analysis
 
 ---
 
 ## Results
 
+Final model evaluated on the held-out test set, using the tuned hyperparameters 
+(C=10, ngram_range=(1,2), max_features=10000) and an optimized classification 
+threshold of 0.25:
+
 | Metric | Value |
 |---|---|
-| Weighted F1 (Cross-Validation) | 0.794 (std 0.018) |
-| Weighted F1 (Test Set) | 0.81 |
-| Disaster Class Recall (optimized threshold) | 0.85 |
+| Disaster Class Recall (Test Set) | 0.84 |
+| Disaster Class Precision (Test Set) | 0.62 |
+| Weighted F1 (Test Set) | 0.72 |
+
+The pipeline deliberately favors recall over precision, reflecting the higher 
+real-world cost of missing a real disaster compared to raising a false alarm.
 
 ---
 
@@ -69,11 +77,11 @@ pip install -r requirements.txt
 
 ## Known Limitations
 
-* Classification threshold was selected on the test set rather than a separate 
-  validation set, which may lead to slightly optimistic performance estimates 
-  at the chosen threshold
 * TF-IDF cannot resolve context-dependent or non-literal language — a known 
   failure mode documented in the error analysis section of the notebook
+* Some high-weight features reflect geographic or temporal specificities of the 
+  training data (e.g. "california", "hiroshima") rather than generalizable 
+  disaster signals
 * A non-negligible share of misclassifications is attributable to labeling 
   noise in the original dataset rather than model error
 
