@@ -38,6 +38,14 @@ real-world cost of missing a real disaster compared to raising a false alarm.
 
 ---
 
+## Presentation
+
+The project was presented as part of the training program (10-minute live 
+presentation). Slides are included as `presentation.pdf` (German).
+
+
+---
+
 ## Project Structure
 
 ```
@@ -45,6 +53,7 @@ nlp-pipeline-for-disaster-tweet-classification/
 ├── Data/
 │   └── train.csv                          # Input data (see below)
 ├── disaster_tweet_classification.ipynb    # Main notebook
+├── presentation.pdf                       # Presentation slides (German)
 ├── requirements.txt
 └── README.md
 ```
